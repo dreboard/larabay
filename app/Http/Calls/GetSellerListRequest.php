@@ -11,8 +11,13 @@
 namespace App\Http\Calls;
 
 
+use App\Http\Traits\EbayTrait;
+use Illuminate\Support\Facades\Log;
+
 class GetSellerListRequest
 {
+    use EbayTrait;
+
     protected $callName = 'GetSellerList';
 
     public function getSellerList($id)
@@ -40,7 +45,6 @@ class GetSellerListRequest
         </GetSellerListRequest>
         ';
         try{
-            $ch = curl_init();
             $headers = [
                 "Content-type: text/xml;charset=\"utf-8\"",
                 "Accept: text/xml",
@@ -61,13 +65,14 @@ class GetSellerListRequest
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             $server_output = curl_exec ($ch);
             if (curl_errno($ch)) {
-                echo 'Error:' . curl_error($ch);
+                Log::error(curl_error($ch));
+                return false;
             }
-
             curl_close ($ch);
             return $server_output;
         }catch (\Throwable $e){
-            echo $e->getMessage();
+            Log::error($e->getMessage());
+            return false;
         }
         return false;
     }

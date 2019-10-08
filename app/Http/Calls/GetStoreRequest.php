@@ -11,6 +11,8 @@
 namespace App\Http\Calls;
 
 
+use Illuminate\Support\Facades\Log;
+
 class GetStoreRequest
 {
     protected $callName = 'GetStore';
@@ -30,7 +32,6 @@ class GetStoreRequest
         </GetStoreRequest>
         ';
         try{
-            $ch = curl_init();
             $headers = [
                 "Content-type: text/xml;charset=\"utf-8\"",
                 "Accept: text/xml",
@@ -51,13 +52,14 @@ class GetStoreRequest
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             $server_output = curl_exec ($ch);
             if (curl_errno($ch)) {
-                echo 'Error:' . curl_error($ch);
+                Log::error(curl_error($ch));
+                return false;
             }
-
             curl_close ($ch);
             return $server_output;
         }catch (\Throwable $e){
-            echo $e->getMessage();
+            Log::error($e->getMessage());
+            return false;
         }
         return false;
     }
