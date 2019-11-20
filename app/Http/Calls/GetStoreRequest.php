@@ -36,16 +36,16 @@ class GetStoreRequest
                 "Content-type: text/xml;charset=\"utf-8\"",
                 "Accept: text/xml",
                 "Content-length: ".strlen($request_body),
-                "X-EBAY-API-APP-ID:".env(EBAY_APP_ID_LIVE),
-                "X-EBAY-API-COMPATIBILITY-LEVEL:" .env(EBAY_API_VERSION),
+                "X-EBAY-API-APP-ID:".env('EBAY_APP_ID_LIVE'),
+                "X-EBAY-API-COMPATIBILITY-LEVEL:" .env('EBAY_API_VERSION'),
                 "X-EBAY-API-CALL-NAME: GetStore",
                 "X-EBAY-API-SITEID: 0",
-                'X-EBAY-API-VERSION:'.env(EBAY_API_VERSION),
+                'X-EBAY-API-VERSION:'.env('EBAY_API_VERSION'),
                 'X-EBAY-API-REQUEST-ENCODING:xml'
             ];
 
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, env(EBAY_XML_URL_LIVE));
+            curl_setopt($ch, CURLOPT_URL, env('EBAY_XML_URL_LIVE'));
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS,$request_body);  //Post Fields
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
