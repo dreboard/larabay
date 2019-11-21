@@ -10,6 +10,10 @@
 
 namespace App\Http\Calls;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use \DTS\eBaySDK\Constants;
 use \DTS\eBaySDK\Trading\Types;
 use \DTS\eBaySDK\Trading\Enums;
@@ -25,7 +29,83 @@ class GetSellerListRequest
 
     protected $callName = 'GetSellerList';
 
-    public function getSeller()
+    protected $sandboxUrl = 'https://api.sandbox.ebay.com/ws/api.dll';
+
+    /**
+     * Get My Selling getSellerOrders
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @see https://developer.ebay.com/devzone/xml/docs/reference/ebay/getmyebayselling.html
+     * @see https://developer.ebay.com/DevZone/XML/docs/Reference/ebay/GetOrders.html#Request.CreateTimeFrom
+     * @see https://stackoverflow.com/questions/30254723/how-to-fetch-my-listings-of-product-from-ebay
+     */
+    public function getSellerOrders(int $days = null)
+    {
+        $date = new DateTimeImmutable();
+        $date->setTimezone(new DateTimeZone('GMT'));
+        $time = microtime(true);
+        $tMicro = sprintf("%03d",($time - floor($time)) * 1000);
+
+        $ebay_service = new EbayServices();
+        $service = $ebay_service->createTrading([
+            /*'apiVersion' => '921',
+            'siteId' => Constants\SiteIds::US
+            'UserID' => 'bullionsharkllc',
+            'StartTimeTo' => $date->add(new DateInterval('P30D'))->format('Y-m-d\TH:i:s\.').$tMicro.'Z',
+            'StartTimeFrom' => $date->sub(new DateInterval('P30D'))->format('Y-m-d\TH:i:s\.').$tMicro.'Z'*/
+        ]);
+        $authToken = config('ebay.sandbox.oauthUserToken');
+        $items = [];
+        $request = new Types\GetOrdersRequestType();
+
+        $format = 'Y-m-d\TH:i:s\.000';
+        $date = DateTime::createFromFormat($format, '2019-11-01');
+
+        $request->RequesterCredentials = new Types\CustomSecurityHeaderType();
+        $request->RequesterCredentials->eBayAuthToken = config('ebay.sandbox.oauthUserToken');
+        $request->DetailLevel[] = 'ItemReturnDescription';
+        $request->CreateTimeFrom = new DateTime('2019-11-10');
+        $request->CreateTimeTo = new DateTime('2019-11-30');
+        $request->Pagination = new Types\PaginationType();
+        $request->Pagination->EntriesPerPage = 25;
+        //$request->NumberOfDays = 20;
+        $request->Pagination->PageNumber = 1;
+        $request->OrderRole = 'Seller';
+        //$response = $service->getOrders($request);
+        //dd($response);
+
+
+        $pageNum = 1;
+        $request->Pagination->PageNumber = $pageNum;
+
+        $response = $service->getOrders($request);
+        dd($response);
+        if (isset($response->Errors)) {
+            foreach ($response->Errors as $error) {
+                printf("%s: %s\n%s\n\n",
+                    $error->SeverityCode === Enums\SeverityCodeType::C_ERROR ? 'Error' : 'Warning',
+                    $error->ShortMessage,
+                    $error->LongMessage
+                );
+            }
+        }
+        if ($response->Ack !== 'Failure') {
+            foreach ($response->OrderArray as $item) {
+                $items[] = $item;
+            }
+        }
+        //$response = json_decode($response, true);
+        return response()->json([
+            'items' => $items
+        ]);
+
+    }
+
+    /**
+     * Use SDK call for getting sellers items
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @see https://developer.ebay.com/devzone/xml/docs/reference/ebay/getmyebayselling.html
+     */
+    public function getSellerList()
     {
         $ebay_service = new EbayServices();
         $service = $ebay_service->createTrading();
@@ -57,7 +137,7 @@ class GetSellerListRequest
         do {
             $request->ActiveList->Pagination->PageNumber = $pageNum;
             $response = $service->getMyeBaySelling($request);
-            return json_decode($response, true);
+            $response = json_decode($response, true);
             return response()->json([
                 'items' => $response
             ]);
@@ -91,12 +171,16 @@ class GetSellerListRequest
         } while (isset($response->ActiveList) && $pageNum <= $response->ActiveList->PaginationResult->TotalNumberOfPages);
     }
 
-    public function getSellerList($id)
+    /**
+     * Use raw call for getting sellers items
+     * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function getSellerListXml()
     {
         $request_body = '<?xml version="1.0" encoding="utf-8"?>
         <GetSellerListRequest xmlns="urn:ebay:apis:eBLBaseComponents">
           <RequesterCredentials>
-            <eBayAuthToken>'.env(EBAY_AUTH_LIVE).'</eBayAuthToken>
+            <eBayAuthToken>'.config('ebay.sandbox.oauthUserToken').'</eBayAuthToken>
           </RequesterCredentials>
             <ErrorLanguage>en_US</ErrorLanguage>
             <WarningLevel>High</WarningLevel>
@@ -104,15 +188,23 @@ class GetSellerListRequest
           <GranularityLevel>Fine</GranularityLevel> 
              <!-- Enter a valid Time range to get the Items listed using this format
                   2013-03-21T06:38:48.420Z -->
-                  <UserID>'.$id.'</UserID>
+             
                   <DetailLevel>ItemReturnDescription</DetailLevel>
-          <StartTimeFrom>2018-10-12T21:59:59.005Z</StartTimeFrom> 
-          <StartTimeTo>2018-10-26T21:59:59.005Z</StartTimeTo> 
+          <StartTimeFrom>2019-11-12T21:59:59.005Z</StartTimeFrom> 
+          <StartTimeTo>2019-11-26T21:59:59.005Z</StartTimeTo> 
           <IncludeWatchCount>true</IncludeWatchCount> 
           <Pagination> PaginationType
             <EntriesPerPage>20</EntriesPerPage>
             <PageNumber>1</PageNumber>
           </Pagination>
+            <OutputSelector>Seller</OutputSelector>
+          <OutputSelector>ItemArray.Item.ItemID</OutputSelector>
+          <OutputSelector>ItemArray.Item.Quantity</OutputSelector>
+          <OutputSelector>ItemArray.Item.Title</OutputSelector>
+          <OutputSelector>ItemArray.Item.SellingStatus.CurrentPrice</OutputSelector>
+          <OutputSelector>ItemArray.Item.TimeLeft</OutputSelector>
+          <OutputSelector>ItemArray.Item.PrimaryCategory.CategoryID</OutputSelector>
+          <OutputSelector>ItemArray.Item.PrimaryCategory.CategoryName</OutputSelector>
         </GetSellerListRequest>
         ';
         try{
@@ -120,27 +212,31 @@ class GetSellerListRequest
                 "Content-type: text/xml;charset=\"utf-8\"",
                 "Accept: text/xml",
                 "Content-length: ".strlen($request_body),
-                "X-EBAY-API-APP-ID:".env(EBAY_APP_ID_LIVE),
+                "X-EBAY-API-APP-ID:".config('ebay.sandbox.credentials.appId'),
                 "X-EBAY-API-COMPATIBILITY-LEVEL: 837",
                 "X-EBAY-API-CALL-NAME: GetSellerList",
                 "X-EBAY-API-SITEID: 0",
-                'X-EBAY-API-VERSION:837',
+                'X-EBAY-API-VERSION:967',
                 'X-EBAY-API-REQUEST-ENCODING:xml'
             ];
 
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, env(EBAY_XML_URL_LIVE));
+            curl_setopt($ch, CURLOPT_URL, $this->sandboxUrl);
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS,$request_body);  //Post Fields
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             $server_output = curl_exec ($ch);
+            //dd($server_output);
             if (curl_errno($ch)) {
                 Log::error(curl_error($ch));
                 return false;
             }
             curl_close ($ch);
-            return $server_output;
+
+            return response($server_output, 200)
+                ->header('Content-Type', 'text/xml');
+
         }catch (\Throwable $e){
             Log::error($e->getMessage());
             return false;

@@ -21,4 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/item/{item}', 'HomeController@item')->name('item');
 
 Route::get('/seller', 'CallController@getSeller')->name('seller');
-
+Route::get('/sellerList', 'CallController@getSellerList')->name('sellerList');

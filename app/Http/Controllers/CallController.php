@@ -18,8 +18,14 @@ class CallController extends Controller
 
         $this->getSellerListRequest = $getSellerListRequest;
     }
+
     public function getSeller()
     {
-        return $this->getSellerListRequest->getSeller();
+        return $this->getSellerListRequest->getSellerOrders();
+    }
+
+    public function getSellerList()
+    {
+        return $this->getSellerListRequest->getSellerListXml();
     }
 }
