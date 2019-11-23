@@ -32,11 +32,12 @@ class GetSellerListRequest
     protected $sandboxUrl = 'https://api.sandbox.ebay.com/ws/api.dll';
 
     /**
-     * Get My Selling getSellerOrders
+     * Get My Selling getSellerOrders (GetOrdersRequestType)
      * @return \Illuminate\Http\JsonResponse|mixed
      * @see https://developer.ebay.com/devzone/xml/docs/reference/ebay/getmyebayselling.html
      * @see https://developer.ebay.com/DevZone/XML/docs/Reference/ebay/GetOrders.html#Request.CreateTimeFrom
      * @see https://stackoverflow.com/questions/30254723/how-to-fetch-my-listings-of-product-from-ebay
+     * {@internal TESTED}}
      */
     public function getSellerOrders(int $days = null)
     {
@@ -46,13 +47,7 @@ class GetSellerListRequest
         $tMicro = sprintf("%03d",($time - floor($time)) * 1000);
 
         $ebay_service = new EbayServices();
-        $service = $ebay_service->createTrading([
-            /*'apiVersion' => '921',
-            'siteId' => Constants\SiteIds::US
-            'UserID' => 'bullionsharkllc',
-            'StartTimeTo' => $date->add(new DateInterval('P30D'))->format('Y-m-d\TH:i:s\.').$tMicro.'Z',
-            'StartTimeFrom' => $date->sub(new DateInterval('P30D'))->format('Y-m-d\TH:i:s\.').$tMicro.'Z'*/
-        ]);
+        $service = $ebay_service->createTrading();
         $authToken = config('ebay.sandbox.oauthUserToken');
         $items = [];
         $request = new Types\GetOrdersRequestType();
@@ -70,15 +65,10 @@ class GetSellerListRequest
         //$request->NumberOfDays = 20;
         $request->Pagination->PageNumber = 1;
         $request->OrderRole = 'Seller';
-        //$response = $service->getOrders($request);
-        //dd($response);
-
-
         $pageNum = 1;
         $request->Pagination->PageNumber = $pageNum;
 
-        $response = $service->getOrders($request);
-        dd($response);
+        $response = json_decode($service->getOrders($request), true);
         if (isset($response->Errors)) {
             foreach ($response->Errors as $error) {
                 printf("%s: %s\n%s\n\n",
@@ -88,12 +78,15 @@ class GetSellerListRequest
                 );
             }
         }
-        if ($response->Ack !== 'Failure') {
-            foreach ($response->OrderArray as $item) {
+        if ($response['Ack'] !== 'Failure') {
+            /*foreach ($response->OrderArray->Order->data as $item) {
+                $items[] = $item;
+            }*/
+            foreach ($response['OrderArray']['Order'] as $k => $item) {
                 $items[] = $item;
             }
         }
-        //$response = json_decode($response, true);
+
         return response()->json([
             'items' => $items
         ]);
@@ -101,12 +94,14 @@ class GetSellerListRequest
     }
 
     /**
-     * Use SDK call for getting sellers items
+     * Use SDK call for getting sellers items (GetMyeBaySellingRequestType)
      * @return \Illuminate\Http\JsonResponse|mixed
      * @see https://developer.ebay.com/devzone/xml/docs/reference/ebay/getmyebayselling.html
+     * {@internal TESTED }}
      */
     public function getSellerList()
     {
+        $items = [];
         $ebay_service = new EbayServices();
         $service = $ebay_service->createTrading();
 
@@ -137,10 +132,8 @@ class GetSellerListRequest
         do {
             $request->ActiveList->Pagination->PageNumber = $pageNum;
             $response = $service->getMyeBaySelling($request);
-            $response = json_decode($response, true);
-            return response()->json([
-                'items' => $response
-            ]);
+            //$response = json_decode($response, true);
+//dd($response);
 
             /**
              * Output the result of calling the service operation.
@@ -166,14 +159,28 @@ class GetSellerListRequest
                         $item->SellingStatus->CurrentPrice->value
                     );
                 }
+/*              ==================
+                Results for page 1 json
+                ==================
+                (110478053549) 1969-S PCGS PR-68-RD Lincoln Cent: USD 10.00
+                (110477255755) 2010 Lincoln Cent: USD 1.00
+                (110477284652) 1972 Proof Lincoln Cent: USD 1.00
+                (110477284658) 1971 Proof Lincoln Cent: USD 1.00
+                (110477285526) 1971 Proof Lincoln Cent: USD 1.00
+                (110478051066) 1969 Proof Lincoln Cent: USD 1.00
+                {"items":{}}*/
             }
             $pageNum += 1;
         } while (isset($response->ActiveList) && $pageNum <= $response->ActiveList->PaginationResult->TotalNumberOfPages);
+        return response()->json([
+            'items' => $response
+        ]);
     }
 
     /**
      * Use raw call for getting sellers items
      * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * {@internal TESTED}}
      */
     public function getSellerListXml()
     {
@@ -227,7 +234,7 @@ class GetSellerListRequest
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             $server_output = curl_exec ($ch);
-            //dd($server_output);
+
             if (curl_errno($ch)) {
                 Log::error(curl_error($ch));
                 return false;
@@ -239,9 +246,10 @@ class GetSellerListRequest
 
         }catch (\Throwable $e){
             Log::error($e->getMessage());
-            return false;
+            return response([], 404)
+                ->header('Content-Type', 'text/xml');
         }
-        return false;
+
     }
 
 

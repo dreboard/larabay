@@ -20,5 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/item/{item}', 'HomeController@item')->name('item');
 
-Route::get('/seller', 'CallController@getSeller')->name('seller');
+// SDK Calls
+Route::get('/sellerOrders', 'CallController@getSellerOrders')->name('sellerOrders');
 Route::get('/sellerList', 'CallController@getSellerList')->name('sellerList');
+// RAW calls
+Route::get('/getSellerListXml', 'CallController@getSellerListXml')->name('getSellerListXml');
+
+Route::get('/getOrdersXml', 'CallController@getOrders')->name('getOrdersXml');
