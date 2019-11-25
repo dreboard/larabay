@@ -58,11 +58,11 @@ class GetSellerListRequest
         $request->RequesterCredentials = new Types\CustomSecurityHeaderType();
         $request->RequesterCredentials->eBayAuthToken = config('ebay.sandbox.oauthUserToken');
         $request->DetailLevel[] = 'ItemReturnDescription';
-        $request->CreateTimeFrom = new DateTime('2019-11-10');
-        $request->CreateTimeTo = new DateTime('2019-11-30');
+        //$request->CreateTimeFrom = new DateTime('2019-11-10');
+        //$request->CreateTimeTo = new DateTime('2019-11-30');
         $request->Pagination = new Types\PaginationType();
         $request->Pagination->EntriesPerPage = 25;
-        //$request->NumberOfDays = 20;
+        $request->NumberOfDays = 20;
         $request->Pagination->PageNumber = 1;
         $request->OrderRole = 'Seller';
         $pageNum = 1;
