@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Calls\GetItem;
+use App\Http\Calls\GetItemRequest;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->getItem = new GetItem();
+        $this->getItem = new GetItemRequest();
         $this->middleware('auth');
     }
 

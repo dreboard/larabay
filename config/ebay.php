@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'mode' => env('EBAY_MODE', 'sandbox'),
+    'mode' => env('EBAY_MODE', 'production'),
 
 
     /*
