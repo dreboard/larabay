@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Calls\GetCategoryInfo;
 use App\Http\Calls\GetItemRequest;
 use App\Http\Calls\GetOrdersRequest;
 use App\Http\Calls\GetSellerListRequest;
@@ -26,22 +27,29 @@ class CallController extends Controller
      * @var GetItemRequest
      */
     private $getItemRequest;
+    /**
+     * @var GetCategoryInfo
+     */
+    private $getCategoryInfo;
 
     /**
      * CallController constructor.
      * @param GetSellerListRequest $getSellerListRequest
      * @param GetOrdersRequest $getOrdersRequest
      * @param GetItemRequest $getItemRequest
+     * @param GetCategoryInfo $getCategoryInfo
      */
     public function __construct(
         GetSellerListRequest $getSellerListRequest,
         GetOrdersRequest $getOrdersRequest,
-        GetItemRequest $getItemRequest
+        GetItemRequest $getItemRequest,
+        GetCategoryInfo $getCategoryInfo
     )
     {
         $this->getSellerListRequest = $getSellerListRequest;
         $this->getOrdersRequest = $getOrdersRequest;
         $this->getItemRequest = $getItemRequest;
+        $this->getCategoryInfo = $getCategoryInfo;
     }
 
     /**
@@ -73,7 +81,8 @@ class CallController extends Controller
      */
     public function getOrders()
     {
-        return $this->getOrdersRequest->getOrdersXml();
+        return $this->getOrdersRequest->getOrdersSdk();
+        //return $this->getOrdersRequest->getOrdersXml();
     }
 
     /**

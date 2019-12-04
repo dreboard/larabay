@@ -29,3 +29,5 @@ Route::get('/getSellerListXml', 'CallController@getSellerListXml')->name('getSel
 Route::get('/getOrdersXml', 'CallController@getOrders')->name('getOrdersXml');
 
 Route::get('/getItemById/{id}', 'CallController@getItemById')->name('getItemById');
+
+Route::get('/getCategoryById/{id}', 'CallController@getItemById')->name('getItemById');

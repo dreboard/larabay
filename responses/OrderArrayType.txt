@@ -1,0 +1,250 @@
+OrderArrayType {#393 ▼
+  -values: array:1 [▼
+    "Order" => RepeatableType {#417 ▼
+      -data: array:4 [▼
+        0 => OrderType {#392 ▶}
+        1 => OrderType {#395 ▶}
+        2 => OrderType {#415 ▶}
+        3 => OrderType {#454 ▼
+          -values: array:24 [▼
+            "OrderID" => "110477285526-0"
+            "OrderStatus" => "Active"
+            "AdjustmentAmount" => AmountType {#488 ▼
+              -values: array:2 [▼
+                "currencyID" => "USD"
+                "value" => 0.0
+              ]
+              -attachment: array:2 [▶]
+            }
+            "AmountPaid" => AmountType {#501 ▼
+              -values: array:2 [▼
+                "currencyID" => "USD"
+                "value" => 0.0
+              ]
+              -attachment: array:2 [▶]
+            }
+            "AmountSaved" => AmountType {#507 ▶}
+            "CheckoutStatus" => CheckoutStatusType {#508 ▶}
+            "ShippingDetails" => ShippingDetailsType {#509 ▼
+              -values: array:3 [▼
+                "SalesTax" => SalesTaxType {#510 ▼
+                  -values: array:4 [▼
+                    "SalesTaxPercent" => 0.0
+                    "SalesTaxState" => ""
+                    "ShippingIncludedInTax" => false
+                    "SalesTaxAmount" => AmountType {#515 ▼
+                      -values: array:2 [▼
+                        "currencyID" => "USD"
+                        "value" => 0.0
+                      ]
+                      -attachment: array:2 [▶]
+                    }
+                  ]
+                  -attachment: array:2 [▶]
+                }
+                "ShippingServiceOptions" => RepeatableType {#516 ▼
+                  -data: array:1 [▼
+                    0 => ShippingServiceOptionsType {#513 ▼
+                      -values: array:6 [▼
+                        "ShippingService" => "USPSMedia"
+                        "ShippingServiceCost" => AmountType {#517 ▼
+                          -values: array:2 [▼
+                            "currencyID" => "USD"
+                            "value" => 2.5
+                          ]
+                          -attachment: array:2 [▶]
+                        }
+                        "ShippingServicePriority" => 1
+                        "ExpeditedService" => false
+                        "ShippingTimeMin" => 2
+                        "ShippingTimeMax" => 8
+                      ]
+                      -attachment: array:2 [▶]
+                    }
+                  ]
+                  -position: 0
+                  -class: "DTS\eBaySDK\Trading\Types\ShippingDetailsType"
+                  -property: "ShippingServiceOptions"
+                  -expectedType: "DTS\eBaySDK\Trading\Types\ShippingServiceOptionsType"
+                }
+                "SellingManagerSalesRecordNumber" => 103
+              ]
+              -attachment: array:2 [▶]
+            }
+            "CreatedTime" => DateTime @1575231702 {#512 ▼
+              date: 2019-12-01 20:21:42.0 +00:00
+            }
+            "PaymentMethods" => RepeatableType {#518 ▼
+              -data: array:1 [▼
+                0 => "PayPal"
+              ]
+              -position: 0
+              -class: "DTS\eBaySDK\Trading\Types\OrderType"
+              -property: "PaymentMethods"
+              -expectedType: "string"
+            }
+            "SellerEmail" => "dre.board@gmail.com"
+            "ShippingAddress" => AddressType {#519 ▼
+              -values: array:9 [▼
+                "Name" => ""
+                "Street1" => ""
+                "Street2" => ""
+                "CityName" => ""
+                "StateOrProvince" => ""
+                "CountryName" => ""
+                "Phone" => ""
+                "PostalCode" => ""
+                "ExternalAddressID" => ""
+              ]
+              -attachment: array:2 [▶]
+            }
+            "ShippingServiceSelected" => ShippingServiceOptionsType {#514 ▶}
+            "Subtotal" => AmountType {#521 ▶}
+            "Total" => AmountType {#520 ▼
+              -values: array:2 [▼
+                "currencyID" => "USD"
+                "value" => 3.5
+              ]
+              -attachment: array:2 [▶]
+            }
+            "TransactionArray" => TransactionArrayType {#523 ▼
+              -values: array:1 [▼
+                "Transaction" => RepeatableType {#532 ▼
+                  -data: array:1 [▼
+                    0 => TransactionType {#525 ▼
+                      -values: array:15 [▼
+                        "Buyer" => UserType {#527 ▼
+                          -values: array:4 [▼
+                            "Email" => "dre.board2@gmail.com"
+                            "VATStatus" => "NoVATTax"
+                            "UserFirstName" => "Dre2"
+                            "UserLastName" => "Board"
+                          ]
+                          -attachment: array:2 [▼
+                            "data" => null
+                            "mimeType" => null
+                          ]
+                        }
+                        "ShippingDetails" => ShippingDetailsType {#528 ▼
+                          -values: array:1 [▼
+                            "SellingManagerSalesRecordNumber" => 103
+                          ]
+                          -attachment: array:2 [▶]
+                        }
+                        "CreatedDate" => DateTime @1575231702 {#529 ▶}
+                        "Item" => ItemType {#531 ▼
+                          -values: array:3 [▼
+                            "ItemID" => "110477285526"
+                            "Site" => "US"
+                            "Title" => "1971 Proof Lincoln Cent"
+                          ]
+                          -attachment: array:2 [▶]
+                        }
+                        "QuantityPurchased" => 1
+                        "Status" => TransactionStatusType {#533 ▼
+                          -values: array:3 [▼
+                            "PaymentHoldStatus" => "None"
+                            "InquiryStatus" => "NotApplicable"
+                            "ReturnStatus" => "NotApplicable"
+                          ]
+                          -attachment: array:2 [▶]
+                        }
+                        "TransactionID" => "0"
+                        "TransactionPrice" => AmountType {#534 ▼
+                          -values: array:2 [▼
+                            "currencyID" => "USD"
+                            "value" => 1.0
+                          ]
+                          -attachment: array:2 [▶]
+                        }
+                        "TransactionSiteID" => "US"
+                        "Platform" => "eBay"
+                        "Taxes" => TaxesType {#530 ▼
+                          -values: array:2 [▼
+                            "TotalTaxAmount" => AmountType {#535 ▼
+                              -values: array:2 [▼
+                                "currencyID" => "USD"
+                                "value" => 0.0
+                              ]
+                              -attachment: array:2 [▶]
+                            }
+                            "TaxDetails" => RepeatableType {#542 ▼
+                              -data: array:1 [▼
+                                0 => TaxDetailsType {#536 ▼
+                                  -values: array:6 [▼
+                                    "Imposition" => "SalesTax"
+                                    "TaxDescription" => "SalesTax"
+                                    "TaxAmount" => AmountType {#538 ▶}
+                                    "TaxOnSubtotalAmount" => AmountType {#539 ▼
+                                      -values: array:2 [▼
+                                        "currencyID" => "USD"
+                                        "value" => 0.0
+                                      ]
+                                      -attachment: array:2 [▶]
+                                    }
+                                    "TaxOnShippingAmount" => AmountType {#540 ▼
+                                      -values: array:2 [▼
+                                        "currencyID" => "USD"
+                                        "value" => 0.0
+                                      ]
+                                      -attachment: array:2 [▶]
+                                    }
+                                    "TaxOnHandlingAmount" => AmountType {#541 ▼
+                                      -values: array:2 [▼
+                                        "currencyID" => "USD"
+                                        "value" => 0.0
+                                      ]
+                                      -attachment: array:2 [▶]
+                                    }
+                                  ]
+                                  -attachment: array:2 [▶]
+                                }
+                              ]
+                              -position: 0
+                              -class: "DTS\eBaySDK\Trading\Types\TaxesType"
+                              -property: "TaxDetails"
+                              -expectedType: "DTS\eBaySDK\Trading\Types\TaxDetailsType"
+                            }
+                          ]
+                          -attachment: array:2 [▶]
+                        }
+                        "OrderLineItemID" => "110477285526-0"
+                        "eBayPlusTransaction" => false
+                        "GuaranteedShipping" => false
+                        "GuaranteedDelivery" => false
+                      ]
+                      -attachment: array:2 [▶]
+                    }
+                  ]
+                  -position: 0
+                  -class: "DTS\eBaySDK\Trading\Types\TransactionArrayType"
+                  -property: "Transaction"
+                  -expectedType: "DTS\eBaySDK\Trading\Types\TransactionType"
+                }
+              ]
+              -attachment: array:2 [▶]
+            }
+            "BuyerUserID" => "testuser_dre.board2"
+            "IntegratedMerchantCreditCardEnabled" => false
+            "EIASToken" => "nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4aiCpGHowydj6x9nY+seQ=="
+            "PaymentHoldStatus" => "None"
+            "IsMultiLegShipping" => false
+            "SellerUserID" => "testuser_dreboard"
+            "SellerEIASToken" => "nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4ajD5mBqA6dj6x9nY+seQ=="
+            "CancelStatus" => "NotApplicable"
+            "ContainseBayPlusTransaction" => false
+          ]
+          -attachment: array:2 [▶]
+        }
+      ]
+      -position: 0
+      -class: "DTS\eBaySDK\Trading\Types\OrderArrayType"
+      -property: "Order"
+      -expectedType: "DTS\eBaySDK\Trading\Types\OrderType"
+    }
+  ]
+  -attachment: array:2 [▼
+    "data" => null
+    "mimeType" => null
+  ]
+}

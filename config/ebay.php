@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'mode' => env('EBAY_MODE', 'production'),
+    'mode' => env('EBAY_MODE', 'sandbox'),
 
 
     /*
@@ -52,6 +52,7 @@ return [
         ],
         'authToken' => env('EBAY_SANDBOX_AUTH_TOKEN'),
         'oauthUserToken' => env('EBAY_SANDBOX_OAUTH_USER_TOKEN'),
+        'endpoint' => env('EBAY_XML_URL_SANDBOX'),
     ],
     'production' => [
         'credentials' => [
@@ -61,5 +62,6 @@ return [
         ],
         'authToken' => env('EBAY_PROD_AUTH_TOKEN'),
         'oauthUserToken' => env('EBAY_PROD_OAUTH_USER_TOKEN'),
+        'endpoint' => env('EBAY_XML_URL_LIVE'),
     ]
 ];

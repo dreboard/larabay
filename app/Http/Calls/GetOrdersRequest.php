@@ -11,11 +11,16 @@
 namespace App\Http\Calls;
 
 
+use Carbon\Carbon;
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
+use DTS\eBaySDK\Trading\Types\CustomSecurityHeaderType;
+use DTS\eBaySDK\Trading\Types\GetOrdersRequestType;
+use Hkonnet\LaravelEbay\EbayServices;
 use SimpleXMLElement;
 use Throwable;
+
 
 class GetOrdersRequest
 {
@@ -63,7 +68,6 @@ class GetOrdersRequest
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS,$request_body);  //Post Fields
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             $server_output = curl_exec ($ch);
             if (curl_errno($ch)) {
@@ -101,8 +105,85 @@ class GetOrdersRequest
         }
     }
 
-    public function getOrdersSdk()
+    /**
+     * @param null $date
+     * @return array
+     */
+    public function getOrdersSdk($date = null)
     {
+        try{
+            $ebay_service = new EbayServices();
+            $service = $ebay_service->createTrading();
+
+            $request = new GetOrdersRequestType();
+            $request->RequesterCredentials = new CustomSecurityHeaderType();
+            $authToken = config('ebay.sandbox.oauthUserToken');
+            $request->RequesterCredentials->eBayAuthToken = $authToken;
+
+            $request->Pagination = new \DTS\eBaySDK\Trading\Types\PaginationType();
+            $request->Pagination->EntriesPerPage = 25;
+
+            if ($date) {
+                $startOfDay = Carbon::createFromFormat('m/d/Y', $date)->startOfDay()->toDateTimeString();
+            } else {
+                $startOfDay = Carbon::today()->subDays(30)->startOfDay()->toDateTimeString();
+            }
+            $endOfDay = Carbon::today()->endOfDay()->toDateTimeString();
+
+            $request->CreateTimeFrom = \DateTime::createFromFormat('Y-m-d H:i:s', $startOfDay);
+            $request->CreateTimeTo = \DateTime::createFromFormat('Y-m-d H:i:s', $endOfDay);
+            $pageNum = 1;
+
+            $request->OrderRole = 'Seller';// 'Buyer';
+            $orders = [];
+            $i = 0;
+            do {
+                $request->Pagination->PageNumber = $pageNum;
+
+                /**
+                 * Send the request.
+                 */
+                $response = $service->getOrders($request);
+                //dd($response);
+                /**
+                 * Output the result of calling the service operation.
+                 */
+                if (isset($response->Errors)) {
+                    foreach ($response->Errors as $error) {
+                        printf(
+                            "%s: %s\n%s\n\n",
+                            $error->SeverityCode === \DTS\eBaySDK\Trading\Enums\SeverityCodeType::C_ERROR ? 'Error' : 'Warning',
+                            $error->ShortMessage,
+                            $error->LongMessage
+                        );
+                    }
+                }
+
+                if ($response->Ack !== 'Failure' && isset($response)) {
+                    //dd($response->OrderArray);
+                    foreach ($response->OrderArray->Order as $order) {
+                        $orders[$i] = [
+                            'OrderID' => $order->OrderID,
+                            'Item' => $order->TransactionArray->Transaction[0]->Item->ItemID,
+                            'Title' => $order->TransactionArray->Transaction[0]->Item->Title,
+                            'BuyerUserID' => $order->BuyerUserID,
+                            'OrderStatus' => $order->OrderStatus,
+                            'SellerEmail' => $order->SellerEmail,
+                            'SellerEIASToken' => $order->SellerEIASToken,
+                            'Buyer' => $order->TransactionArray->Transaction[0]->Buyer->Email,
+                            'TransactionID' => $order->OrderStatus,
+                            'eBayPaymentStatus' => $order->CheckoutStatus->eBayPaymentStatus
+                        ];
+                        $i++;
+                    }
+                }
+                $pageNum += 1;
+                //$response->PaginationResult->TotalNumberOfPages
+            } while (isset($response) && $pageNum <= 30);
+            return $orders;
+        } catch(Throwable $e){
+            return ['error' => $e->getMessage()];
+        }
 
     }
 

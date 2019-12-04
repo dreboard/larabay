@@ -1,0 +1,172 @@
+GetMyeBaySellingResponseType {#363 ▼
+  -values: array:5 [▼
+    "Timestamp" => DateTime @1574443109 {#362 ▼
+      date: 2019-11-22 17:18:29.359 +00:00
+    }
+    "Ack" => "Success"
+    "Version" => "1131"
+    "Build" => "E1131_CORE_APISELLING_19107106_R1"
+    "ActiveList" => PaginatedItemArrayType {#374 ▼
+      -values: array:2 [▼
+        "ItemArray" => ItemArrayType {#383 ▼
+          -values: array:1 [▼
+            "Item" => RepeatableType {#395 ▼
+              -data: array:6 [▼
+                0 => ItemType {#385 ▼
+                  -values: array:14 [▼
+                    "BuyItNowPrice" => AmountType {#387 ▶}
+                    "ItemID" => "110478053549"
+                    "ListingDetails" => ListingDetailsType {#389 ▶}
+                    "ListingDuration" => "GTC"
+                    "ListingType" => "FixedPriceItem"
+                    "Quantity" => 5
+                    "SellingStatus" => SellingStatusType {#392 ▶}
+                    "ShippingDetails" => ShippingDetailsType {#388 ▶}
+                    "TimeLeft" => "P29DT3H58M51S"
+                    "Title" => "1969-S PCGS PR-68-RD Lincoln Cent"
+                    "QuantityAvailable" => 4
+                    "PictureDetails" => PictureDetailsType {#398 ▶}
+                    "ClassifiedAdPayPerLeadFee" => AmountType {#393 ▶}
+                    "SellerProfiles" => SellerProfilesType {#399 ▶}
+                  ]
+                  -attachment: array:2 [▶]
+                }
+                1 => ItemType {#386 ▼
+                  -values: array:15 [▼
+                    "ItemID" => "110477255755"
+                    "ListingDetails" => ListingDetailsType {#405 ▶}
+                    "ListingDuration" => "Days_7"
+                    "ListingType" => "Chinese"
+                    "Quantity" => 1
+                    "ReservePrice" => AmountType {#408 ▶}
+                    "SellingStatus" => SellingStatusType {#404 ▶}
+                    "ShippingDetails" => ShippingDetailsType {#407 ▶}
+                    "StartPrice" => AmountType {#411 ▶}
+                    "TimeLeft" => "P3DT19M18S"
+                    "Title" => "2010 Lincoln Cent"
+                    "QuantityAvailable" => 1
+                    "LeadCount" => 1
+                    "ClassifiedAdPayPerLeadFee" => AmountType {#416 ▶}
+                    "SellerProfiles" => SellerProfilesType {#412 ▶}
+                  ]
+                  -attachment: array:2 [▶]
+                }
+                2 => ItemType {#403 ▼
+                  -values: array:15 [▼
+                    "ItemID" => "110477284652"
+                    "ListingDetails" => ListingDetailsType {#422 ▶}
+                    "ListingDuration" => "Days_7"
+                    "ListingType" => "Chinese"
+                    "Quantity" => 1
+                    "ReservePrice" => AmountType {#425 ▶}
+                    "SellingStatus" => SellingStatusType {#421 ▶}
+                    "ShippingDetails" => ShippingDetailsType {#424 ▶}
+                    "StartPrice" => AmountType {#428 ▶}
+                    "TimeLeft" => "P4DT11H59M56S"
+                    "Title" => "1972 Proof Lincoln Cent"
+                    "QuantityAvailable" => 1
+                    "PictureDetails" => PictureDetailsType {#429 ▶}
+                    "ClassifiedAdPayPerLeadFee" => AmountType {#432 ▶}
+                    "SellerProfiles" => SellerProfilesType {#434 ▶}
+                  ]
+                  -attachment: array:2 [▶]
+                }
+                3 => ItemType {#417 ▼
+                  -values: array:15 [▼
+                    "ItemID" => "110477284658"
+                    "ListingDetails" => ListingDetailsType {#439 ▶}
+                    "ListingDuration" => "Days_7"
+                    "ListingType" => "Chinese"
+                    "Quantity" => 1
+                    "ReservePrice" => AmountType {#442 ▶}
+                    "SellingStatus" => SellingStatusType {#438 ▶}
+                    "ShippingDetails" => ShippingDetailsType {#441 ▶}
+                    "StartPrice" => AmountType {#445 ▶}
+                    "TimeLeft" => "P4DT12H41S"
+                    "Title" => "1971 Proof Lincoln Cent"
+                    "QuantityAvailable" => 1
+                    "PictureDetails" => PictureDetailsType {#446 ▶}
+                    "ClassifiedAdPayPerLeadFee" => AmountType {#449 ▶}
+                    "SellerProfiles" => SellerProfilesType {#451 ▶}
+                  ]
+                  -attachment: array:2 [▶]
+                }
+                4 => ItemType {#433 ▼
+                  -values: array:16 [▼
+                    "ItemID" => "110477285526"
+                    "ListingDetails" => ListingDetailsType {#456 ▶}
+                    "ListingDuration" => "Days_7"
+                    "ListingType" => "Chinese"
+                    "Quantity" => 1
+                    "ReservePrice" => AmountType {#459 ▶}
+                    "SellingStatus" => SellingStatusType {#455 ▶}
+                    "ShippingDetails" => ShippingDetailsType {#458 ▶}
+                    "StartPrice" => AmountType {#462 ▶}
+                    "TimeLeft" => "P4DT13H23M29S"
+                    "Title" => "1971 Proof Lincoln Cent"
+                    "QuantityAvailable" => 1
+                    "PictureDetails" => PictureDetailsType {#463 ▶}
+                    "LeadCount" => 1
+                    "ClassifiedAdPayPerLeadFee" => AmountType {#469 ▶}
+                    "SellerProfiles" => SellerProfilesType {#467 ▶}
+                  ]
+                  -attachment: array:2 [▶]
+                }
+                5 => ItemType {#450 ▼
+                  -values: array:16 [▼
+                    "BuyItNowPrice" => AmountType {#473 ▶}
+                    "ItemID" => "110478051066"
+                    "ListingDetails" => ListingDetailsType {#475 ▶}
+                    "ListingDuration" => "Days_7"
+                    "ListingType" => "Chinese"
+                    "Quantity" => 1
+                    "ReservePrice" => AmountType {#478 ▶}
+                    "SellingStatus" => SellingStatusType {#474 ▶}
+                    "ShippingDetails" => ShippingDetailsType {#477 ▶}
+                    "StartPrice" => AmountType {#481 ▶}
+                    "TimeLeft" => "P6DT3H2M45S"
+                    "Title" => "1969 Proof Lincoln Cent"
+                    "QuantityAvailable" => 1
+                    "PictureDetails" => PictureDetailsType {#482 ▶}
+                    "ClassifiedAdPayPerLeadFee" => AmountType {#485 ▶}
+                    "SellerProfiles" => SellerProfilesType {#487 ▶}
+                  ]
+                  -attachment: array:2 [▼
+                    "data" => null
+                    "mimeType" => null
+                  ]
+                }
+              ]
+              -position: 0
+              -class: "DTS\eBaySDK\Trading\Types\ItemArrayType"
+              -property: "Item"
+              -expectedType: "DTS\eBaySDK\Trading\Types\ItemType"
+            }
+          ]
+          -attachment: array:2 [▼
+            "data" => null
+            "mimeType" => null
+          ]
+        }
+        "PaginationResult" => PaginationResultType {#382 ▼
+          -values: array:2 [▼
+            "TotalNumberOfPages" => 1
+            "TotalNumberOfEntries" => 6
+          ]
+          -attachment: array:2 [▼
+            "data" => null
+            "mimeType" => null
+          ]
+        }
+      ]
+      -attachment: array:2 [▼
+        "data" => null
+        "mimeType" => null
+      ]
+    }
+  ]
+  -attachment: array:2 [▼
+    "data" => null
+    "mimeType" => null
+  ]
+}
