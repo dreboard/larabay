@@ -1,0 +1,520 @@
+
+
+https://developer.ebay.com/DevZone/XML/Docs/Reference/ebay/GetSellerTransactions.html
+
+Use this call to retrieve all of your order line items (transactions). This call can potentially return many order line items, depending on the recent sale activity of the authenticated user.
+
+GetItemTransactions 
+------------------------------------------------------------------------------------------------------------------
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<GetSellerTransactionsRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+  <RequesterCredentials>
+    <eBayAuthToken>AgAAAA**AQAAAA**aAAAAA**9K7tXQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4ajD5mBqA6dj6x9nY+seQ**PMgBAA**AAMAAA**YxmWd1AaTTymmCkT0unYJEQbB+QkpAX+sVa1Mn5haoO+ybhetvnaiMVUlTZuGuVcH6lFJ+iLNiLH3lMIzqBjrIDFuwuFRgR61XCemLBCf1WBDw8JZwQYWk8pSoiPjTCu8aEC7FtKaNn5ofvcOkWVyZW/vQvc6nmRfXy+AlMCRthprbhG3bE4PdqaBXFL6Q2T1TuwwiAT71HTafOa7cj2yC02fkv4iSO+G9kHIwJQ4P1H+vChfhJseZsSOQnnkS3/D0vyqMBNqURm6zr7LEc8GM+ZLfpL82Ij6Ku11x2vqGsqOwZOyobq1Ajc/5t3+IshSd85E77HDWG5inzYjPK1Y6cbUPSG4HaE7XHws+Ruzef3RbZFgDrxFjQyqMRs0pY+ttMsNH0ckQgiZRft9qdfcVj8fULl776r+rTJd0oMnthLnYhqxmYu1g4siawfUqQqdJe0rrQsUCiq/GmL45PoeflZqLxU8rqGMwXkjCGybSoFUKRSvp9PQORp7ORpSUaxgSXSiwuBUtrYtkkdbG9Lta5cEDCc/63xRk90/PFLj0yHtyn/bNJ/1+yb3p/wjYvkPjD+aWQv9cjSXnad1qoUCuko5Tfy3vkVLcb4vcALK5tyUBOQxtGYIO0Cv50LbQp8LBekO7RGgG8iSzVZuRrDesGEUwhYMmZ02VDSuOW8+Ex1a/5eNY8oyiC8bQ57cuKGoYocv/wBGud6qovpKCYZWEHPdzPRe840rv2k9Pe5E9SiKVq2ch+yyRBRnuS5tlaF</eBayAuthToken>
+  </RequesterCredentials>
+	<ErrorLanguage>en_US</ErrorLanguage>
+	<WarningLevel>High</WarningLevel>
+  <IncludeFinalValueFee>True</IncludeFinalValueFee>
+  <IncludeContainingOrder>True</IncludeContainingOrder>
+  <!-- Enter time filters to limit the response using this format 
+       2018-01-05T15:20:36.000Z. This call cannot retrieve orders more than 30 days old, so the timestamp in the ModTimeFrom cannot be any older than 30 days in the past. If ModTimeTo field is omitted, its value just defaults to the present time  -->
+  <ModTimeFrom>2019-11-05T15:20:36.000Z</ModTimeFrom>
+  <ModTimeTo>2019-12-05T15:20:36.000Z</ModTimeTo>
+  <Pagination>
+    <EntriesPerPage>25</EntriesPerPage>
+    <PageNumber>1</PageNumber>
+  </Pagination>
+</GetSellerTransactionsRequest>
+
+
+
+------------------------------------------------------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<GetSellerTransactionsResponse 
+  xmlns="urn:ebay:apis:eBLBaseComponents">
+  <Timestamp>2019-12-09T02:40:07.656Z</Timestamp>
+  <Ack>Success</Ack>
+  <Version>1131</Version>
+  <Build>E1131_CORE_APISELLING_19107106_R1</Build>
+  <PaginationResult>
+    <TotalNumberOfPages>1</TotalNumberOfPages>
+    <TotalNumberOfEntries>4</TotalNumberOfEntries>
+  </PaginationResult>
+  <HasMoreTransactions>false</HasMoreTransactions>
+  <TransactionsPerPage>25</TransactionsPerPage>
+  <PageNumber>1</PageNumber>
+  <ReturnedTransactionCountActual>4</ReturnedTransactionCountActual>
+  <Seller>
+    <AboutMePage>false</AboutMePage>
+    <EIASToken>nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4ajD5mBqA6dj6x9nY+seQ==</EIASToken>
+    <Email>dre.board@gmail.com</Email>
+    <FeedbackScore>1</FeedbackScore>
+    <PositiveFeedbackPercent>100.0</PositiveFeedbackPercent>
+    <FeedbackPrivate>false</FeedbackPrivate>
+    <FeedbackRatingStar>None</FeedbackRatingStar>
+    <IDVerified>true</IDVerified>
+    <eBayGoodStanding>true</eBayGoodStanding>
+    <NewUser>false</NewUser>
+    <RegistrationDate>2006-01-01T00:00:00.000Z</RegistrationDate>
+    <Site>US</Site>
+    <Status>Confirmed</Status>
+    <UserID>testuser_dreboard</UserID>
+    <UserIDChanged>false</UserIDChanged>
+    <UserIDLastChanged>2018-11-16T03:00:17.000Z</UserIDLastChanged>
+    <VATStatus>NoVATTax</VATStatus>
+    <SellerInfo>
+      <AllowPaymentEdit>true</AllowPaymentEdit>
+      <CheckoutEnabled>true</CheckoutEnabled>
+      <CIPBankAccountStored>false</CIPBankAccountStored>
+      <GoodStanding>true</GoodStanding>
+      <LiveAuctionAuthorized>false</LiveAuctionAuthorized>
+      <MerchandizingPref>OptIn</MerchandizingPref>
+      <QualifiesForB2BVAT>false</QualifiesForB2BVAT>
+      <StoreOwner>false</StoreOwner>
+      <SafePaymentExempt>true</SafePaymentExempt>
+    </SellerInfo>
+  </Seller>
+  <TransactionArray>
+    <Transaction>
+      <AmountPaid currencyID="USD">0.0</AmountPaid>
+      <AdjustmentAmount currencyID="USD">0.0</AdjustmentAmount>
+      <ConvertedAdjustmentAmount currencyID="USD">0.0</ConvertedAdjustmentAmount>
+      <Buyer>
+        <AboutMePage>false</AboutMePage>
+        <EIASToken>nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4aiCpGHowydj6x9nY+seQ==</EIASToken>
+        <Email>dre.board2@gmail.com</Email>
+        <FeedbackScore>0</FeedbackScore>
+        <PositiveFeedbackPercent>0.0</PositiveFeedbackPercent>
+        <FeedbackPrivate>false</FeedbackPrivate>
+        <FeedbackRatingStar>None</FeedbackRatingStar>
+        <IDVerified>false</IDVerified>
+        <eBayGoodStanding>true</eBayGoodStanding>
+        <NewUser>true</NewUser>
+        <RegistrationDate>2019-11-14T21:31:30.000Z</RegistrationDate>
+        <Site>US</Site>
+        <Status>Confirmed</Status>
+        <UserID>testuser_dre.board2</UserID>
+        <UserIDChanged>false</UserIDChanged>
+        <UserIDLastChanged>2019-11-14T21:31:30.000Z</UserIDLastChanged>
+        <VATStatus>NoVATTax</VATStatus>
+        <BuyerInfo>
+          <ShippingAddress>
+            <Name>Dre2 Board</Name>
+            <Street1>address</Street1>
+            <CityName>city</CityName>
+            <StateOrProvince>WA</StateOrProvince>
+            <Country>US</Country>
+            <CountryName>United States</CountryName>
+            <Phone>(100) 001-0659</Phone>
+            <PostalCode>98102</PostalCode>
+            <AddressID>24995224</AddressID>
+            <AddressOwner>eBay</AddressOwner>
+            <AddressUsage>DefaultShipping</AddressUsage>
+          </ShippingAddress>
+        </BuyerInfo>
+        <UserAnonymized>false</UserAnonymized>
+        <UserFirstName>Dre2</UserFirstName>
+        <UserLastName>Board</UserLastName>
+      </Buyer>
+      <ShippingDetails>
+        <ChangePaymentInstructions>true</ChangePaymentInstructions>
+        <PaymentEdited>false</PaymentEdited>
+        <SalesTax>
+          <SalesTaxPercent>0.0</SalesTaxPercent>
+          <ShippingIncludedInTax>false</ShippingIncludedInTax>
+        </SalesTax>
+        <ShippingType>Flat</ShippingType>
+        <SellingManagerSalesRecordNumber>102</SellingManagerSalesRecordNumber>
+        <ThirdPartyCheckout>false</ThirdPartyCheckout>
+        <TaxTable/>
+        <GetItFast>false</GetItFast>
+      </ShippingDetails>
+      <ConvertedAmountPaid currencyID="USD">3.5</ConvertedAmountPaid>
+      <ConvertedTransactionPrice currencyID="USD">1.0</ConvertedTransactionPrice>
+      <CreatedDate>2019-11-27T03:11:37.000Z</CreatedDate>
+      <DepositType>None</DepositType>
+      <Item>
+        <AutoPay>false</AutoPay>
+        <Currency>USD</Currency>
+        <ItemID>110477255755</ItemID>
+        <ListingType>Chinese</ListingType>
+        <PaymentMethods>PayPal</PaymentMethods>
+        <PrivateListing>false</PrivateListing>
+        <Quantity>1</Quantity>
+        <SellingStatus>
+          <BidCount>1</BidCount>
+          <CurrentPrice currencyID="USD">1.0</CurrentPrice>
+          <QuantitySold>1</QuantitySold>
+          <ListingStatus>Ended</ListingStatus>
+        </SellingStatus>
+        <GetItFast>false</GetItFast>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+      </Item>
+      <QuantityPurchased>1</QuantityPurchased>
+      <Status>
+        <eBayPaymentStatus>NoPaymentFailure</eBayPaymentStatus>
+        <CheckoutStatus>CheckoutIncomplete</CheckoutStatus>
+        <LastTimeModified>2019-11-27T03:11:37.000Z</LastTimeModified>
+        <PaymentMethodUsed>None</PaymentMethodUsed>
+        <CompleteStatus>Incomplete</CompleteStatus>
+        <BuyerSelectedShipping>false</BuyerSelectedShipping>
+        <PaymentHoldStatus>None</PaymentHoldStatus>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+        <InquiryStatus>NotApplicable</InquiryStatus>
+        <ReturnStatus>NotApplicable</ReturnStatus>
+      </Status>
+      <TransactionID>0</TransactionID>
+      <TransactionPrice currencyID="USD">1.0</TransactionPrice>
+      <BestOfferSale>false</BestOfferSale>
+      <ShippingServiceSelected>
+        <ShippingService>USPSMedia</ShippingService>
+        <ShippingServiceCost currencyID="USD">2.5</ShippingServiceCost>
+      </ShippingServiceSelected>
+      <ContainingOrder>
+        <OrderID>110477255755-0</OrderID>
+        <OrderStatus>Active</OrderStatus>
+        <CancelStatus>NotApplicable</CancelStatus>
+        <ContainseBayPlusTransaction>false</ContainseBayPlusTransaction>
+      </ContainingOrder>
+      <TransactionSiteID>US</TransactionSiteID>
+      <Platform>eBay</Platform>
+      <PayPalEmailAddress>dre.board@gmail.com</PayPalEmailAddress>
+      <BuyerGuaranteePrice currencyID="USD">20000.0</BuyerGuaranteePrice>
+      <OrderLineItemID>110477255755-0</OrderLineItemID>
+      <IsMultiLegShipping>false</IsMultiLegShipping>
+      <IntangibleItem>false</IntangibleItem>
+      <eBayPlusTransaction>false</eBayPlusTransaction>
+    </Transaction>
+    <Transaction>
+      <AmountPaid currencyID="USD">0.0</AmountPaid>
+      <AdjustmentAmount currencyID="USD">0.0</AdjustmentAmount>
+      <ConvertedAdjustmentAmount currencyID="USD">0.0</ConvertedAdjustmentAmount>
+      <Buyer>
+        <AboutMePage>false</AboutMePage>
+        <EIASToken>nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4aiCpGHowydj6x9nY+seQ==</EIASToken>
+        <Email>dre.board2@gmail.com</Email>
+        <FeedbackScore>0</FeedbackScore>
+        <PositiveFeedbackPercent>0.0</PositiveFeedbackPercent>
+        <FeedbackPrivate>false</FeedbackPrivate>
+        <FeedbackRatingStar>None</FeedbackRatingStar>
+        <IDVerified>false</IDVerified>
+        <eBayGoodStanding>true</eBayGoodStanding>
+        <NewUser>true</NewUser>
+        <RegistrationDate>2019-11-14T21:31:30.000Z</RegistrationDate>
+        <Site>US</Site>
+        <Status>Confirmed</Status>
+        <UserID>testuser_dre.board2</UserID>
+        <UserIDChanged>false</UserIDChanged>
+        <UserIDLastChanged>2019-11-14T21:31:30.000Z</UserIDLastChanged>
+        <VATStatus>NoVATTax</VATStatus>
+        <BuyerInfo>
+          <ShippingAddress>
+            <Name>Dre2 Board</Name>
+            <Street1>address</Street1>
+            <CityName>city</CityName>
+            <StateOrProvince>WA</StateOrProvince>
+            <Country>US</Country>
+            <CountryName>United States</CountryName>
+            <Phone>(100) 001-0659</Phone>
+            <PostalCode>98102</PostalCode>
+            <AddressID>0</AddressID>
+            <AddressOwner>eBay</AddressOwner>
+            <AddressUsage>DefaultShipping</AddressUsage>
+          </ShippingAddress>
+        </BuyerInfo>
+        <UserAnonymized>false</UserAnonymized>
+        <UserFirstName>Dre2</UserFirstName>
+        <UserLastName>Board</UserLastName>
+      </Buyer>
+      <ShippingDetails>
+        <ChangePaymentInstructions>true</ChangePaymentInstructions>
+        <PaymentEdited>false</PaymentEdited>
+        <SalesTax>
+          <SalesTaxPercent>0.0</SalesTaxPercent>
+          <ShippingIncludedInTax>false</ShippingIncludedInTax>
+        </SalesTax>
+        <ShippingType>Flat</ShippingType>
+        <SellingManagerSalesRecordNumber>102</SellingManagerSalesRecordNumber>
+        <ThirdPartyCheckout>false</ThirdPartyCheckout>
+        <TaxTable/>
+        <GetItFast>false</GetItFast>
+      </ShippingDetails>
+      <ConvertedAmountPaid currencyID="USD">3.5</ConvertedAmountPaid>
+      <ConvertedTransactionPrice currencyID="USD">1.0</ConvertedTransactionPrice>
+      <CreatedDate>2019-11-27T03:11:37.000Z</CreatedDate>
+      <DepositType>None</DepositType>
+      <Item>
+        <AutoPay>false</AutoPay>
+        <Currency>USD</Currency>
+        <ItemID>110477255755</ItemID>
+        <ListingType>Chinese</ListingType>
+        <PaymentMethods>PayPal</PaymentMethods>
+        <PrivateListing>false</PrivateListing>
+        <Quantity>1</Quantity>
+        <SellingStatus>
+          <BidCount>1</BidCount>
+          <CurrentPrice currencyID="USD">1.0</CurrentPrice>
+          <QuantitySold>1</QuantitySold>
+          <ListingStatus>Ended</ListingStatus>
+        </SellingStatus>
+        <GetItFast>false</GetItFast>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+      </Item>
+      <QuantityPurchased>1</QuantityPurchased>
+      <Status>
+        <eBayPaymentStatus>NoPaymentFailure</eBayPaymentStatus>
+        <CheckoutStatus>CheckoutIncomplete</CheckoutStatus>
+        <LastTimeModified>2019-11-27T03:11:37.000Z</LastTimeModified>
+        <PaymentMethodUsed>None</PaymentMethodUsed>
+        <CompleteStatus>Incomplete</CompleteStatus>
+        <BuyerSelectedShipping>false</BuyerSelectedShipping>
+        <PaymentHoldStatus>None</PaymentHoldStatus>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+        <InquiryStatus>NotApplicable</InquiryStatus>
+        <ReturnStatus>NotApplicable</ReturnStatus>
+      </Status>
+      <TransactionID>0</TransactionID>
+      <TransactionPrice currencyID="USD">1.0</TransactionPrice>
+      <BestOfferSale>false</BestOfferSale>
+      <ShippingServiceSelected>
+        <ShippingService>USPSMedia</ShippingService>
+        <ShippingServiceCost currencyID="USD">2.5</ShippingServiceCost>
+      </ShippingServiceSelected>
+      <ContainingOrder>
+        <OrderID>110477255755-0</OrderID>
+        <OrderStatus>Active</OrderStatus>
+        <CancelStatus>NotApplicable</CancelStatus>
+        <ContainseBayPlusTransaction>false</ContainseBayPlusTransaction>
+      </ContainingOrder>
+      <TransactionSiteID>US</TransactionSiteID>
+      <Platform>eBay</Platform>
+      <PayPalEmailAddress>dre.board@gmail.com</PayPalEmailAddress>
+      <BuyerGuaranteePrice currencyID="USD">20000.0</BuyerGuaranteePrice>
+      <OrderLineItemID>110477255755-0</OrderLineItemID>
+      <IsMultiLegShipping>false</IsMultiLegShipping>
+      <IntangibleItem>false</IntangibleItem>
+      <eBayPlusTransaction>false</eBayPlusTransaction>
+    </Transaction>
+    <Transaction>
+      <AmountPaid currencyID="USD">0.0</AmountPaid>
+      <AdjustmentAmount currencyID="USD">0.0</AdjustmentAmount>
+      <ConvertedAdjustmentAmount currencyID="USD">0.0</ConvertedAdjustmentAmount>
+      <Buyer>
+        <AboutMePage>false</AboutMePage>
+        <EIASToken>nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4aiCpGHowydj6x9nY+seQ==</EIASToken>
+        <Email>dre.board2@gmail.com</Email>
+        <FeedbackScore>0</FeedbackScore>
+        <PositiveFeedbackPercent>0.0</PositiveFeedbackPercent>
+        <FeedbackPrivate>false</FeedbackPrivate>
+        <FeedbackRatingStar>None</FeedbackRatingStar>
+        <IDVerified>false</IDVerified>
+        <eBayGoodStanding>true</eBayGoodStanding>
+        <NewUser>true</NewUser>
+        <RegistrationDate>2019-11-14T21:31:30.000Z</RegistrationDate>
+        <Site>US</Site>
+        <Status>Confirmed</Status>
+        <UserID>testuser_dre.board2</UserID>
+        <UserIDChanged>false</UserIDChanged>
+        <UserIDLastChanged>2019-11-14T21:31:30.000Z</UserIDLastChanged>
+        <VATStatus>NoVATTax</VATStatus>
+        <BuyerInfo>
+          <ShippingAddress>
+            <Name>Dre2 Board</Name>
+            <Street1>address</Street1>
+            <CityName>city</CityName>
+            <StateOrProvince>WA</StateOrProvince>
+            <Country>US</Country>
+            <CountryName>United States</CountryName>
+            <Phone>(100) 001-0659</Phone>
+            <PostalCode>98102</PostalCode>
+            <AddressID>24995224</AddressID>
+            <AddressOwner>eBay</AddressOwner>
+            <AddressUsage>DefaultShipping</AddressUsage>
+          </ShippingAddress>
+        </BuyerInfo>
+        <UserAnonymized>false</UserAnonymized>
+        <UserFirstName>Dre2</UserFirstName>
+        <UserLastName>Board</UserLastName>
+      </Buyer>
+      <ShippingDetails>
+        <ChangePaymentInstructions>true</ChangePaymentInstructions>
+        <PaymentEdited>false</PaymentEdited>
+        <SalesTax>
+          <SalesTaxPercent>0.0</SalesTaxPercent>
+          <ShippingIncludedInTax>false</ShippingIncludedInTax>
+        </SalesTax>
+        <ShippingType>Flat</ShippingType>
+        <SellingManagerSalesRecordNumber>103</SellingManagerSalesRecordNumber>
+        <ThirdPartyCheckout>false</ThirdPartyCheckout>
+        <TaxTable/>
+        <GetItFast>false</GetItFast>
+      </ShippingDetails>
+      <ConvertedAmountPaid currencyID="USD">3.5</ConvertedAmountPaid>
+      <ConvertedTransactionPrice currencyID="USD">1.0</ConvertedTransactionPrice>
+      <CreatedDate>2019-12-01T20:21:42.000Z</CreatedDate>
+      <DepositType>None</DepositType>
+      <Item>
+        <AutoPay>false</AutoPay>
+        <Currency>USD</Currency>
+        <ItemID>110477285526</ItemID>
+        <ListingType>Chinese</ListingType>
+        <PaymentMethods>PayPal</PaymentMethods>
+        <PrivateListing>false</PrivateListing>
+        <Quantity>1</Quantity>
+        <SellingStatus>
+          <BidCount>1</BidCount>
+          <CurrentPrice currencyID="USD">1.0</CurrentPrice>
+          <QuantitySold>1</QuantitySold>
+          <ListingStatus>Ended</ListingStatus>
+        </SellingStatus>
+        <GetItFast>false</GetItFast>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+      </Item>
+      <QuantityPurchased>1</QuantityPurchased>
+      <Status>
+        <eBayPaymentStatus>NoPaymentFailure</eBayPaymentStatus>
+        <CheckoutStatus>CheckoutIncomplete</CheckoutStatus>
+        <LastTimeModified>2019-12-01T20:21:42.000Z</LastTimeModified>
+        <PaymentMethodUsed>None</PaymentMethodUsed>
+        <CompleteStatus>Incomplete</CompleteStatus>
+        <BuyerSelectedShipping>false</BuyerSelectedShipping>
+        <PaymentHoldStatus>None</PaymentHoldStatus>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+        <InquiryStatus>NotApplicable</InquiryStatus>
+        <ReturnStatus>NotApplicable</ReturnStatus>
+      </Status>
+      <TransactionID>0</TransactionID>
+      <TransactionPrice currencyID="USD">1.0</TransactionPrice>
+      <BestOfferSale>false</BestOfferSale>
+      <ShippingServiceSelected>
+        <ShippingService>USPSMedia</ShippingService>
+        <ShippingServiceCost currencyID="USD">2.5</ShippingServiceCost>
+      </ShippingServiceSelected>
+      <ContainingOrder>
+        <OrderID>110477285526-0</OrderID>
+        <OrderStatus>Active</OrderStatus>
+        <CancelStatus>NotApplicable</CancelStatus>
+        <ContainseBayPlusTransaction>false</ContainseBayPlusTransaction>
+      </ContainingOrder>
+      <TransactionSiteID>US</TransactionSiteID>
+      <Platform>eBay</Platform>
+      <PayPalEmailAddress>dre.board@gmail.com</PayPalEmailAddress>
+      <BuyerGuaranteePrice currencyID="USD">20000.0</BuyerGuaranteePrice>
+      <OrderLineItemID>110477285526-0</OrderLineItemID>
+      <IsMultiLegShipping>false</IsMultiLegShipping>
+      <IntangibleItem>false</IntangibleItem>
+      <eBayPlusTransaction>false</eBayPlusTransaction>
+    </Transaction>
+    <Transaction>
+      <AmountPaid currencyID="USD">0.0</AmountPaid>
+      <AdjustmentAmount currencyID="USD">0.0</AdjustmentAmount>
+      <ConvertedAdjustmentAmount currencyID="USD">0.0</ConvertedAdjustmentAmount>
+      <Buyer>
+        <AboutMePage>false</AboutMePage>
+        <EIASToken>nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4aiCpGHowydj6x9nY+seQ==</EIASToken>
+        <Email>dre.board2@gmail.com</Email>
+        <FeedbackScore>0</FeedbackScore>
+        <PositiveFeedbackPercent>0.0</PositiveFeedbackPercent>
+        <FeedbackPrivate>false</FeedbackPrivate>
+        <FeedbackRatingStar>None</FeedbackRatingStar>
+        <IDVerified>false</IDVerified>
+        <eBayGoodStanding>true</eBayGoodStanding>
+        <NewUser>true</NewUser>
+        <RegistrationDate>2019-11-14T21:31:30.000Z</RegistrationDate>
+        <Site>US</Site>
+        <Status>Confirmed</Status>
+        <UserID>testuser_dre.board2</UserID>
+        <UserIDChanged>false</UserIDChanged>
+        <UserIDLastChanged>2019-11-14T21:31:30.000Z</UserIDLastChanged>
+        <VATStatus>NoVATTax</VATStatus>
+        <BuyerInfo>
+          <ShippingAddress>
+            <Name>Dre2 Board</Name>
+            <Street1>address</Street1>
+            <CityName>city</CityName>
+            <StateOrProvince>WA</StateOrProvince>
+            <Country>US</Country>
+            <CountryName>United States</CountryName>
+            <Phone>(100) 001-0659</Phone>
+            <PostalCode>98102</PostalCode>
+            <AddressID>24995224</AddressID>
+            <AddressOwner>eBay</AddressOwner>
+            <AddressUsage>DefaultShipping</AddressUsage>
+          </ShippingAddress>
+        </BuyerInfo>
+        <UserAnonymized>false</UserAnonymized>
+        <UserFirstName>Dre2</UserFirstName>
+        <UserLastName>Board</UserLastName>
+      </Buyer>
+      <ShippingDetails>
+        <ChangePaymentInstructions>true</ChangePaymentInstructions>
+        <PaymentEdited>false</PaymentEdited>
+        <SalesTax>
+          <SalesTaxPercent>0.0</SalesTaxPercent>
+          <ShippingIncludedInTax>false</ShippingIncludedInTax>
+        </SalesTax>
+        <ShippingType>Flat</ShippingType>
+        <SellingManagerSalesRecordNumber>103</SellingManagerSalesRecordNumber>
+        <ThirdPartyCheckout>false</ThirdPartyCheckout>
+        <TaxTable/>
+        <GetItFast>false</GetItFast>
+      </ShippingDetails>
+      <ConvertedAmountPaid currencyID="USD">3.5</ConvertedAmountPaid>
+      <ConvertedTransactionPrice currencyID="USD">1.0</ConvertedTransactionPrice>
+      <CreatedDate>2019-12-01T20:21:42.000Z</CreatedDate>
+      <DepositType>None</DepositType>
+      <Item>
+        <AutoPay>false</AutoPay>
+        <Currency>USD</Currency>
+        <ItemID>110477285526</ItemID>
+        <ListingType>Chinese</ListingType>
+        <PaymentMethods>PayPal</PaymentMethods>
+        <PrivateListing>false</PrivateListing>
+        <Quantity>1</Quantity>
+        <SellingStatus>
+          <BidCount>1</BidCount>
+          <CurrentPrice currencyID="USD">1.0</CurrentPrice>
+          <QuantitySold>1</QuantitySold>
+          <ListingStatus>Ended</ListingStatus>
+        </SellingStatus>
+        <GetItFast>false</GetItFast>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+      </Item>
+      <QuantityPurchased>1</QuantityPurchased>
+      <Status>
+        <eBayPaymentStatus>NoPaymentFailure</eBayPaymentStatus>
+        <CheckoutStatus>CheckoutIncomplete</CheckoutStatus>
+        <LastTimeModified>2019-12-01T20:21:42.000Z</LastTimeModified>
+        <PaymentMethodUsed>None</PaymentMethodUsed>
+        <CompleteStatus>Incomplete</CompleteStatus>
+        <BuyerSelectedShipping>false</BuyerSelectedShipping>
+        <PaymentHoldStatus>None</PaymentHoldStatus>
+        <IntegratedMerchantCreditCardEnabled>false</IntegratedMerchantCreditCardEnabled>
+        <InquiryStatus>NotApplicable</InquiryStatus>
+        <ReturnStatus>NotApplicable</ReturnStatus>
+      </Status>
+      <TransactionID>0</TransactionID>
+      <TransactionPrice currencyID="USD">1.0</TransactionPrice>
+      <BestOfferSale>false</BestOfferSale>
+      <ShippingServiceSelected>
+        <ShippingService>USPSMedia</ShippingService>
+        <ShippingServiceCost currencyID="USD">2.5</ShippingServiceCost>
+      </ShippingServiceSelected>
+      <ContainingOrder>
+        <OrderID>110477285526-0</OrderID>
+        <OrderStatus>Active</OrderStatus>
+        <CancelStatus>NotApplicable</CancelStatus>
+        <ContainseBayPlusTransaction>false</ContainseBayPlusTransaction>
+      </ContainingOrder>
+      <TransactionSiteID>US</TransactionSiteID>
+      <Platform>eBay</Platform>
+      <PayPalEmailAddress>dre.board@gmail.com</PayPalEmailAddress>
+      <BuyerGuaranteePrice currencyID="USD">20000.0</BuyerGuaranteePrice>
+      <OrderLineItemID>110477285526-0</OrderLineItemID>
+      <IsMultiLegShipping>false</IsMultiLegShipping>
+      <IntangibleItem>false</IntangibleItem>
+      <eBayPlusTransaction>false</eBayPlusTransaction>
+    </Transaction>
+  </TransactionArray>
+</GetSellerTransactionsResponse>

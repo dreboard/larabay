@@ -31,6 +31,10 @@ class GetSellerListRequest
 
     protected $sandboxUrl = 'https://api.sandbox.ebay.com/ws/api.dll';
 
+    public function __construct()
+    {
+        
+    }
     /**
      * Get My Selling getSellerOrders (GetOrdersRequestType)
      * @return \Illuminate\Http\JsonResponse|mixed

@@ -15,8 +15,15 @@ use Carbon\Carbon;
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
+use DTS\eBaySDK\Constants\SiteIds;
+use DTS\eBaySDK\Trading\Enums\ItemSortTypeCodeType;
+use DTS\eBaySDK\Trading\Enums\SeverityCodeType;
+use DTS\eBaySDK\Trading\Services\TradingService;
 use DTS\eBaySDK\Trading\Types\CustomSecurityHeaderType;
+use DTS\eBaySDK\Trading\Types\GetMyeBaySellingRequestType;
 use DTS\eBaySDK\Trading\Types\GetOrdersRequestType;
+use DTS\eBaySDK\Trading\Types\ItemListCustomizationType;
+use DTS\eBaySDK\Trading\Types\PaginationType;
 use Hkonnet\LaravelEbay\EbayServices;
 use SimpleXMLElement;
 use Throwable;
@@ -111,6 +118,9 @@ class GetOrdersRequest
      */
     public function getOrdersSdk($date = null)
     {
+        $orders = [];
+        $i = 0;
+        $pageNum = 1;
         try{
             $ebay_service = new EbayServices();
             $service = $ebay_service->createTrading();
@@ -132,11 +142,8 @@ class GetOrdersRequest
 
             $request->CreateTimeFrom = \DateTime::createFromFormat('Y-m-d H:i:s', $startOfDay);
             $request->CreateTimeTo = \DateTime::createFromFormat('Y-m-d H:i:s', $endOfDay);
-            $pageNum = 1;
-
             $request->OrderRole = 'Seller';// 'Buyer';
-            $orders = [];
-            $i = 0;
+
             do {
                 $request->Pagination->PageNumber = $pageNum;
 
@@ -185,6 +192,74 @@ class GetOrdersRequest
             return ['error' => $e->getMessage()];
         }
 
+    }
+
+    public function geMyOrders()
+    {
+        /*
+        Credentials must be an instance of DTS\eBaySDK\Credentials\CredentialsInterface, an associative
+        array that contains "appId", "certId", "devId", or a credentials provider function.
+        */
+        $service = new TradingService([
+            'credentials' => [
+                'devId' => env('EBAY_SANDBOX_DEV_ID'),
+                'appId' => env('EBAY_SANDBOX_APP_ID'),
+                'certId' => env('EBAY_SANDBOX_CERT_ID'),
+            ],
+            'siteId'      => SiteIds::US
+        ]);
+        /**
+         * Create the request object.
+         */
+        $request = new GetMyeBaySellingRequestType();
+        /**
+         * An user token is required when using the Trading service.
+         */
+        $request->RequesterCredentials = new CustomSecurityHeaderType();
+        $request->RequesterCredentials->eBayAuthToken = config('ebay.sandbox.authToken');
+        /**
+         * Request that eBay returns the list of actively selling items.
+         * We want 10 items per page and they should be sorted in descending order by the current price.
+         */
+        $request->ActiveList = new ItemListCustomizationType();
+        $request->ActiveList->Include = true;
+        $request->ActiveList->Pagination = new PaginationType();
+        $request->ActiveList->Pagination->EntriesPerPage = 10;
+        $request->ActiveList->Sort = ItemSortTypeCodeType::C_CURRENT_PRICE_DESCENDING;
+        $pageNum = 1;
+        do {
+            $request->ActiveList->Pagination->PageNumber = $pageNum;
+            /**
+             * Send the request.
+             */
+            $response = $service->getMyeBaySelling($request);
+            /**
+             * Output the result of calling the service operation.
+             */
+            echo "==================\nResults for page $pageNum\n==================\n";
+            if (isset($response->Errors)) {
+                foreach ($response->Errors as $error) {
+                    printf(
+                        "%s: %s\n%s\n\n",
+                        $error->SeverityCode === SeverityCodeType::C_ERROR ? 'Error' : 'Warning',
+                        $error->ShortMessage,
+                        $error->LongMessage
+                    );
+                }
+            }
+            if ($response->Ack !== 'Failure' && isset($response->ActiveList)) {
+                foreach ($response->ActiveList->ItemArray->Item as $item) {
+                    printf(
+                        "(%s) %s: %s %.2f\n",
+                        $item->ItemID,
+                        $item->Title,
+                        $item->SellingStatus->CurrentPrice->currencyID,
+                        $item->SellingStatus->CurrentPrice->value
+                    );
+                }
+            }
+            $pageNum += 1;
+        } while (isset($response->ActiveList) && $pageNum <= $response->ActiveList->PaginationResult->TotalNumberOfPages);
     }
 
 }

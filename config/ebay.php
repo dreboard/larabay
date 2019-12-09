@@ -52,6 +52,7 @@ return [
         ],
         'authToken' => env('EBAY_SANDBOX_AUTH_TOKEN'),
         'oauthUserToken' => env('EBAY_SANDBOX_OAUTH_USER_TOKEN'),
+        'oauthToken' => base64_encode(env('EBAY_SANDBOX_OAUTH_TOKEN')),
         'endpoint' => env('EBAY_XML_URL_SANDBOX'),
     ],
     'production' => [

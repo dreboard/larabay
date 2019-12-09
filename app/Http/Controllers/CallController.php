@@ -77,10 +77,11 @@ class CallController extends Controller
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getOrders()
     {
+        //return $this->getOrdersRequest->geMyOrders();
         return $this->getOrdersRequest->getOrdersSdk();
         //return $this->getOrdersRequest->getOrdersXml();
     }

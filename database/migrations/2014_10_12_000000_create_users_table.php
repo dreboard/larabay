@@ -29,8 +29,9 @@ class CreateUsersTable extends Migration
             array(
                 'name' => 'dev_ops',
                 'email' => 'dre.board@gmail.com',
-                'password' => bcrypt('temp1234'),
-                'level' => 4
+                'password' => bcrypt('password'),
+                'level' => 4,
+                'credentials' => []
             )
         );
     }
